@@ -1,10 +1,17 @@
 import struct
+from pygame.math import Vector2 as vec2
 
 class WADReader:
     def __init__(self, path):
         self.wad_file = open(path, 'rb')
         self.header = self.read_header()
         self.directory = self.read_directory()
+
+    def read_vertex(self, offset):
+        # 4 bytes = 2h + 2h
+        x = self.read_2_bytes(offset, byte_format='h')
+        y = self.read_2_bytes(offset + 2, byte_format='h')
+        return vec2(x, y)
 
     def read_directory(self):
         directory = []
