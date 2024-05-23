@@ -15,6 +15,13 @@ class MapRenderer:
     def draw(self):
         self.draw_linedefs()
         self.draw_vertexes()
+        self.draw_player_pos()
+
+    def draw_player_pos(self):
+        pos = self.engine.player.pos
+        x = self.remap_x(pos.x)
+        y = self.remap_y(pos.y)
+        pg.draw.circle(self.engine.screen, 'blue',(x,y), 8)
 
     def draw_linedefs(self):
         for line in self.linedefs:

@@ -21,22 +21,22 @@ class WADData:
         )
         self.nodes = self.get_lump_data(
             reader_func=self.reader.read_node,
-            lump_index=self.map_index + self.LUMP_INDICES['NODES']
+            lump_index=self.map_index + self.LUMP_INDICES['NODES'],
             num_bytes=28
         )
         self.sub_sectors = self.get_lump_data(
             reader_func=self.reader.read_sub_sector,
-            lump_index=self.map_index + self.LUMP_INDICES['SSECTORS']
+            lump_index=self.map_index + self.LUMP_INDICES['SSECTORS'],
             num_bytes=4
         )
         self.segments = self.get_lump_data(
             reader_func=self.reader.read_segment,
-            lump_index=self.map_index + self.LUMP_INDICES['SEGS']
+            lump_index=self.map_index + self.LUMP_INDICES['SEGS'],
             num_bytes=10
         )
         self.things = self.get_lump_data(
             reader_func=self.reader.read_thing,
-            lump_index=self.map_index + self.LUMP_INDICES['THINGS']
+            lump_index=self.map_index + self.LUMP_INDICES['THINGS'],
             num_bytes=10
         )
 
