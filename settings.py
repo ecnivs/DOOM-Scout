@@ -10,3 +10,7 @@ H_WIDTH, H_HEIGHT = WIDTH // 2, HEIGHT // 2
 # field of view
 FOV = 90.0
 H_FOV = FOV / 2
+
+# player
+PLAYER_SPEED = 0.3
+PLAYER_ROT_SPEED = 0.12
