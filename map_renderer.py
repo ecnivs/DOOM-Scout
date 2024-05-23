@@ -1,7 +1,6 @@
 import pygame as pg
 from settings import *
 
-
 class MapRenderer:
     def __init__(self, engine):
         self.engine = engine

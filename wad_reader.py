@@ -2,7 +2,6 @@ import struct
 from pygame.math import Vector2 as vec2
 from data_types import *
 
-
 class WADReader:
     def __init__(self, wad_path):
         self.wad_file = open(wad_path, 'rb')

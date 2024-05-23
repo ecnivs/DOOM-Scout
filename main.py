@@ -1,9 +1,11 @@
+# DOOM 1993
+# by Vince Swu
+
 from wad_data import WADData
 from settings import *
 import pygame as pg
 import sys
 from map_renderer import MapRenderer
-
 
 class DoomEngine:
     def __init__(self, wad_path='wad/DOOM1.WAD'):
@@ -39,7 +41,6 @@ class DoomEngine:
             self.draw()
         pg.quit()
         sys.exit()
-
 
 if __name__ == '__main__':
     doom = DoomEngine()

@@ -1,6 +1,5 @@
 from wad_reader import WADReader
 
-
 class WADData:
     LUMP_INDICES = {
         'THINGS': 1, 'LINEDEFS': 2, 'SIDEDEFS': 3, 'VERTEXES': 4, 'SEGS': 5,
