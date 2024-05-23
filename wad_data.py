@@ -32,7 +32,7 @@ class WADData:
         self.segments = self.get_lump_data(
             reader_func=self.reader.read_segment,
             lump_index=self.map_index + self.LUMP_INDICES['SEGS'],
-            num_bytes=10
+            num_bytes=12
         )
         self.things = self.get_lump_data(
             reader_func=self.reader.read_thing,

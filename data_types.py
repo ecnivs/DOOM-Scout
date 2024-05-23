@@ -1,30 +1,35 @@
 # H - uint16, h - int16, I - uint32, i - int32, c - char
 
 class Thing:
+    # 10 bytes
     __slots__ = [
-        'pos',
-        'angle',
-        'type',
-        'flags'
+        'pos',  # pos.x, pos.y - 4h
+        'angle',  # 2H
+        'type',  # 2H
+        'flags'  # 2H
     ]
 
 class Seg:
+    # 12 bytes = 2h x 6
     __slots__ = [
         'start_vertex_id',
         'end_vertex_id',
         'angle',
-        'lindedef_id',
+        'linedef_id',
         'direction',
         'offset',
     ]
 
 class SubSector:
+    # 4 bytes = 2h + 2h
     __slots__ = [
         'seg_count',
         'first_seg_id'
     ]
 
 class Node:
+    # 28 bytes = 2h x 12 + 2H x 2
+
     class BBox:
         __slots__ = ['top', 'bottom', 'left', 'right']
 
@@ -33,11 +38,10 @@ class Node:
         'y_partition',
         'dx_partition',
         'dy_partition',
-        'bbox',
+        'bbox',  # 8h
         'front_child_id',
-        'back_child_id'
+        'back_child_id',
     ]
-    
     def __init__(self):
         self.bbox = {'front': self.BBox(), 'back': self.BBox()}
 
