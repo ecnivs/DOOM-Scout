@@ -20,10 +20,9 @@ class ViewRenderer:
         str_light = str(light_level)
         if tex + str_light not in self.colors:
             tex_id = hash(tex)
-            l = light_level / 255
             random.seed(tex_id)
-            rng = (50, 256)
-            color = rnd(*rng) * l, rnd(*rng) * l, rnd(*rng) * l
+            color = self.pallete[rnd(0, 256)]
+            color = color[0] * light_level, color[1] * light_level, color[2] * light_level
             self.colors[tex + str_light] = color
         return self.colors[tex + str_light]
 
