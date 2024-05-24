@@ -22,7 +22,7 @@ class DoomEngine:
         self.on_init()
 
     def on_init(self):
-        self.wad_data = WADData(self, map_name='E1M1')
+        self.wad_data = WADData(self, map_name='E1M'+str(LEVEL))
         self.map_renderer = MapRenderer(self)
         self.player = Player(self)
         self.bsp = BSP(self)
