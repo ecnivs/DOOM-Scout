@@ -1,3 +1,4 @@
+from pygame.math import Vector2 as vec2
 from settings import *
 
 class BSP:
@@ -18,16 +19,13 @@ class BSP:
 
     def get_sub_sector_height(self):
         sub_sector_id = self.root_node_id
-
         while not sub_sector_id >= self.SUB_SECTOR_IDENTIFIER:
             node = self.nodes[sub_sector_id]
-
             is_on_back = self.is_on_back_side(node)
             if is_on_back:
                 sub_sector_id = self.nodes[sub_sector_id].back_child_id
             else:
                 sub_sector_id = self.nodes[sub_sector_id].front_child_id
-
         sub_sector = self.sub_sectors[sub_sector_id - self.SUB_SECTOR_IDENTIFIER]
         seg = self.segs[sub_sector.first_seg_id]
         return seg.front_sector.floor_height
@@ -43,30 +41,22 @@ class BSP:
     def add_segment_to_fov(self, vertex1, vertex2):
         angle1 = self.point_to_angle(vertex1)
         angle2 = self.point_to_angle(vertex2)
-
         span = self.norm(angle1 - angle2)
-        # backface culling
         if span >= 180.0:
             return False
-
-        # needed for further calculations
         rw_angle1 = angle1
-
         angle1 -= self.player.angle
         angle2 -= self.player.angle
-
         span1 = self.norm(angle1 + H_FOV)
         if span1 > FOV:
             if span1 >= span + FOV:
                 return False
-            # clipping
             angle1 = H_FOV
 
         span2 = self.norm(H_FOV - angle2)
         if span2 > FOV:
             if span2 >= span + FOV:
                 return False
-            # clipping
             angle2 = -H_FOV
 
         x1 = self.angle_to_x(angle1)
@@ -88,7 +78,6 @@ class BSP:
     def check_bbox(self, bbox):
         a, b = vec2(bbox.left, bbox.bottom), vec2(bbox.left, bbox.top)
         c, d = vec2(bbox.right, bbox.top), vec2(bbox.right, bbox.bottom)
-
         px, py = self.player.pos
         if px < bbox.left:
             if py > bbox.top:
@@ -115,9 +104,7 @@ class BSP:
         for v1, v2 in bbox_sides:
             angle1 = self.point_to_angle(v1)
             angle2 = self.point_to_angle(v2)
-
             span = self.norm(angle1 - angle2)
-
             angle1 -= self.player.angle
             span1 = self.norm(angle1 + H_FOV)
             if span1 > FOV:
@@ -132,15 +119,14 @@ class BSP:
 
     def render_bsp_node(self, node_id):
         if self.is_traverse_bsp:
-
             if node_id >= self.SUB_SECTOR_IDENTIFIER:
                 sub_sector_id = node_id - self.SUB_SECTOR_IDENTIFIER
                 self.render_sub_sector(sub_sector_id)
                 return None
-
+            
             node = self.nodes[node_id]
-
             is_on_back = self.is_on_back_side(node)
+            
             if is_on_back:
                 self.render_bsp_node(node.back_child_id)
                 if self.check_bbox(node.bbox['front']):

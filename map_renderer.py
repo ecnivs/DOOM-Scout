@@ -5,27 +5,22 @@ import random
 class MapRenderer:
     def __init__(self, engine):
         self.engine = engine
+        self.screen = engine.screen
         self.wad_data = engine.wad_data
         self.vertexes = self.wad_data.vertexes
         self.linedefs = self.wad_data.linedefs
         self.x_min, self.x_max, self.y_min, self.y_max = self.get_map_bounds()
-        # remapping
         self.vertexes = [pg.math.Vector2(self.remap_x(v.x), self.remap_y(v.y))
                          for v in self.vertexes]
-
-    def draw(self):
-        self.draw_linedefs()
-        self.draw_player_pos()
 
     def draw_vlines(self, x1, x2, sub_sector_id):
         color = self.get_color(sub_sector_id)
         pg.draw.line(self.engine.screen, color, (x1, 0), (x1, HEIGHT), 3)
         pg.draw.line(self.engine.screen, color, (x2, 0), (x2, HEIGHT), 3)
 
-    def draw_seg(self, seg, sub_sector_id):
+    def draw_seg(self, seg):
         v1 = self.vertexes[seg.start_vertex_id]
         v2 = self.vertexes[seg.end_vertex_id]
-        # pg.draw.line(self.engine.screen, self.get_color(sub_sector_id), v1, v2, 4)
         pg.draw.line(self.engine.screen, 'green', v1, v2, 4)
 
     def draw_linedefs(self):
@@ -89,10 +84,8 @@ class MapRenderer:
     def get_map_bounds(self):
         x_sorted = sorted(self.vertexes, key=lambda v: v.x)
         x_min, x_max = x_sorted[0].x, x_sorted[-1].x
-
         y_sorted = sorted(self.vertexes, key=lambda v: v.y)
         y_min, y_max = y_sorted[0].y, y_sorted[-1].y
-
         return x_min, x_max, y_min, y_max
 
     def draw_vertexes(self):
