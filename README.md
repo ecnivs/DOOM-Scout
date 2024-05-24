@@ -23,7 +23,7 @@ DOOM Scout allows you to render and explore levels from the classic DOOM (1993) 
 * Ensure Python 3.x is installed from python.org.
 * Clone this repository or download and extract the ZIP file.
 
-## Running
+## Usage
 ```
 python main.py
 ```
