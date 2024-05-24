@@ -8,6 +8,7 @@ class Player:
         self.thing = engine.wad_data.things[0]
         self.pos = self.thing.pos
         self.angle = self.thing.angle
+        self.DIAG_MOVE_CORR = 1 / math.sqrt(2)
 
     def update(self):
         self.control()
@@ -21,3 +22,18 @@ class Player:
             self.angle += rot_speed
         if key_state[pg.K_RIGHT]:
             self.angle -= rot_speed
+
+        inc = vec2(0)
+        if key_state[pg.K_a]:
+            inc += vec2(0, speed).rotate(self.angle)
+        if key_state[pg.K_d]:
+            inc += vec2(0, -speed).rotate(self.angle)
+        if key_state[pg.K_w]:
+            inc += vec2(speed, 0).rotate(self.angle)
+        if key_state[pg.K_s]:
+            inc += vec2(-speed, 0).rotate(self.angle)
+
+        if inc.x and inc.y:
+            inc *= self.DIAG_MOVE_CORR
+
+        self.pos += inc

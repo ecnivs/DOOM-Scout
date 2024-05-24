@@ -21,6 +21,9 @@ class BSP:
             seg = self.segs[sub_sector.first_seg_id + i]
             self.engine.map_renderer.draw_seg(seg, sub_sector_id)
 
+    def check_bbox(self, bbox):
+        pass
+
     def render_bsp_node(self, node_id):
         if node_id >= self.SUB_SECTOR_IDENTIFIER:
             sub_sector_id = node_id - self.SUB_SECTOR_IDENTIFIER
@@ -32,10 +35,12 @@ class BSP:
         is_on_back = self.is_on_back_side(node)
         if is_on_back:
             self.render_bsp_node(node.back_child_id)
-            self.render_bsp_node(node.front_child_id)
+            if self.check_bbox(node.bbox['front']):
+                self.render_bsp_node(node.front_child_id)
         else:
             self.render_bsp_node(node.front_child_id)
-            self.render_bsp_node(node.back_child_id)
+            if self.check_bbox(node.bbox['back']):
+                self.render_bsp_node(node.back_child_id)
 
     def is_on_back_side(self, node):
         dx = self.player.pos.x - node.x_partition
