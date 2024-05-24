@@ -33,7 +33,6 @@ class BSP:
 
         # needed for further calculations
         rw_angle1 = angle1
-
         angle1 -= self.player.angle
         angle2 -= self.player.angle
 
@@ -100,7 +99,6 @@ class BSP:
             angle2 = self.point_to_angle(v2)
 
             span = self.norm(angle1 - angle2)
-
             angle1 -= self.player.angle
             span1 = self.norm(angle1 + H_FOV)
             if span1 > FOV:

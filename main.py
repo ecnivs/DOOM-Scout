@@ -49,7 +49,6 @@ class DoomEngine:
         pg.quit()
         sys.exit()
 
-
 if __name__ == '__main__':
     doom = DoomEngine()
     doom.run()
