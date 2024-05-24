@@ -5,8 +5,16 @@ import pygame.gfxdraw as gfx
 
 class ViewRenderer:
     def __init__(self, engine):
+        self.pallete = engine.wad_data.asset_data.pallete
         self.screen = engine.screen
         self.colors = {}
+
+    def draw_pallete(self):
+        pal, size = self.pallete, 15
+        for ix in range(16):
+            for iy in range(16):
+                col = pal[iy * 16 + ix]
+                gfx.box(self.screen, (ix * size, iy * size, size, size), col)
 
     def get_color(self, tex, light_level):
         str_light = str(light_level)

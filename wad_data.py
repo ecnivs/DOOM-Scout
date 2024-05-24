@@ -1,3 +1,4 @@
+from asset_data import AssetData
 from wad_reader import WADReader
 
 class WADData:
@@ -59,6 +60,7 @@ class WADData:
         # ----------------------------------------------------------- #
 
         self.update_data()
+        self.asset_data = AssetData(self)
         self.reader.close()
 
     def update_data(self):
