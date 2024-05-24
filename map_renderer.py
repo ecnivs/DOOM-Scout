@@ -14,16 +14,14 @@ class MapRenderer:
                          for v in self.vertexes]
 
     def draw(self):
+        pass
         self.draw_linedefs()
-        # self.draw_vertexes()
         self.draw_player_pos()
-        self.draw_node(node_id=self.engine.bsp.root_node_id)
 
-    def get_color(self, seed):
-        random.seed(seed)
-        rnd = random.randrange
-        rng = 100, 256
-        return rnd(*rng), rnd(*rng), rnd(*rng)
+    def draw_vlines(self, x1, x2, sub_sector_id):
+        color = self.get_color(sub_sector_id)
+        pg.draw.line(self.engine.screen, color, (x1, 0), (x1, HEIGHT), 3)
+        pg.draw.line(self.engine.screen, color, (x2, 0), (x2, HEIGHT), 3)
 
     def draw_seg(self, seg, sub_sector_id):
         v1 = self.vertexes[seg.start_vertex_id]
@@ -31,22 +29,11 @@ class MapRenderer:
         # pg.draw.line(self.engine.screen, self.get_color(sub_sector_id), v1, v2, 4)
         pg.draw.line(self.engine.screen, 'green', v1, v2, 4)
 
-    def draw_bbox(self, bbox, color):
-        x, y = self.remap_x(bbox.left), self.remap_y(bbox.top)
-        w, h = self.remap_x(bbox.right) - x, self.remap_y(bbox.bottom) - y
-        pg.draw.rect(self.engine.screen, color, (x, y, w, h), 2)
-
-    def draw_node(self, node_id):
-        node = self.engine.wad_data.nodes[node_id]
-        bbox_front = node.bbox['front']
-        bbox_back = node.bbox['back']
-        self.draw_bbox(bbox=bbox_front, color='green')
-        self.draw_bbox(bbox=bbox_back, color='red')
-
-        x1, y1 = self.remap_x(node.x_partition), self.remap_y(node.y_partition)
-        x2 = self.remap_x(node.x_partition + node.dx_partition)
-        y2 = self.remap_y(node.y_partition + node.dy_partition)
-        pg.draw.line(self.engine.screen, 'blue', (x1, y1), (x2, y2), 4)
+    def draw_linedefs(self):
+        for line in self.linedefs:
+            p1 = self.vertexes[line.start_vertex_id]
+            p2 = self.vertexes[line.end_vertex_id]
+            pg.draw.line(self.engine.screen, 'red', p1, p2, 2)
 
     def draw_player_pos(self):
         pos = self.engine.player.pos
@@ -69,11 +56,28 @@ class MapRenderer:
         pg.draw.line(self.engine.screen, 'yellow', (px, py), (x1, y1), 4)
         pg.draw.line(self.engine.screen, 'yellow', (px, py), (x2, y2), 4)
 
-    def draw_linedefs(self):
-        for line in self.linedefs:
-            p1 = self.vertexes[line.start_vertex_id]
-            p2 = self.vertexes[line.end_vertex_id]
-            pg.draw.line(self.engine.screen, 'red', p1, p2, 2)
+    def get_color(self, seed):
+        random.seed(seed)
+        rnd = random.randrange
+        rng = 100, 256
+        return rnd(*rng), rnd(*rng), rnd(*rng)
+
+    def draw_bbox(self, bbox, color):
+        x, y = self.remap_x(bbox.left), self.remap_y(bbox.top)
+        w, h = self.remap_x(bbox.right) - x, self.remap_y(bbox.bottom) - y
+        pg.draw.rect(self.engine.screen, color, (x, y, w, h), 2)
+
+    def draw_node(self, node_id):
+        node = self.engine.wad_data.nodes[node_id]
+        bbox_front = node.bbox['front']
+        bbox_back = node.bbox['back']
+        self.draw_bbox(bbox=bbox_front, color='green')
+        self.draw_bbox(bbox=bbox_back, color='red')
+
+        x1, y1 = self.remap_x(node.x_partition), self.remap_y(node.y_partition)
+        x2 = self.remap_x(node.x_partition + node.dx_partition)
+        y2 = self.remap_y(node.y_partition + node.dy_partition)
+        pg.draw.line(self.engine.screen, 'blue', (x1, y1), (x2, y2), 4)
 
     def remap_x(self, n, out_min=30, out_max=WIDTH-30):
         return (max(self.x_min, min(n, self.x_max)) - self.x_min) * (
