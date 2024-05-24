@@ -12,8 +12,8 @@ DOOM Scout allows you to render and explore levels from the classic DOOM (1993) 
 
 ## Prerequisites
 * Python 3.x
-    * Pygame (pip install pygame)
-    * Numba (pip install numba)
+    * Pygame `pip install pygame`
+    * Numba `pip install numba`
     * Sys
     * Random
     * Math
