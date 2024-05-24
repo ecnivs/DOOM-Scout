@@ -30,7 +30,7 @@ class WADReader:
         sector.ceil_height = read_2_bytes(offset + 2, byte_format='h')
         sector.floor_texture = read_string(offset + 4, num_bytes=8)
         sector.ceil_texture = read_string(offset + 12, num_bytes=8)
-        sector.light_level = read_2_bytes(offset + 20, byte_format='H')
+        sector.light_level = read_2_bytes(offset + 20, byte_format='H') / 255.0
         sector.type = read_2_bytes(offset + 22, byte_format='H')
         sector.tag = read_2_bytes(offset + 24, byte_format='H')
         return sector

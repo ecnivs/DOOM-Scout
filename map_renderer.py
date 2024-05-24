@@ -14,7 +14,6 @@ class MapRenderer:
                          for v in self.vertexes]
 
     def draw(self):
-        pass
         self.draw_linedefs()
         self.draw_player_pos()
 
