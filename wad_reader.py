@@ -7,7 +7,7 @@ class WADReader:
         self.wad_file = open(wad_path, 'rb')
         self.header = self.read_header()
         self.directory = self.read_directory()
-    # ---------------------------------------------------------------- #
+    
     def read_pallete(self, offset):
         read_1_byte = self.read_1_byte
         
@@ -19,7 +19,6 @@ class WADReader:
             pallete.append((r, g, b))
         return pallete
 
-    # ---------------------------------------------------------------- #
     def read_sector(self, offset):
         # 26 bytes = 2h + 2h + 8c + 8c + 2H x 3
         read_2_bytes = self.read_2_bytes
@@ -48,7 +47,6 @@ class WADReader:
         sidedef.middle_texture = read_string(offset + 20, num_bytes=8)
         sidedef.sector_id = read_2_bytes(offset + 28, byte_format='H')
         return sidedef
-    # ----------------------------------------------------------------- #
 
     def read_thing(self, offset):
         # 10 bytes = 2h + 2h + 2H x 3
