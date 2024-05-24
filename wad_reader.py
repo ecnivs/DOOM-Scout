@@ -7,6 +7,17 @@ class WADReader:
         self.wad_file = open(wad_path, 'rb')
         self.header = self.read_header()
         self.directory = self.read_directory()
+    # ---------------------------------------------------------------- #
+    def read_pallete(self, offset):
+        read_1_byte = self.read_1_byte
+        
+        pallete = []
+        for i in range(256):
+            r = read_1_byte(offset + i * 3 + 0)
+            g = read_1_byte(offset + i * 3 + 1)
+            b = read_1_byte(offset + i * 3 + 2)
+            pallete.append((r, g, b))
+        return pallete
 
     # ---------------------------------------------------------------- #
     def read_sector(self, offset):
