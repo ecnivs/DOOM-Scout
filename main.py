@@ -1,4 +1,4 @@
-# DOOM 1993
+# DOOM Scout
 # by Vince Swu
 
 from wad_data import WADData
