@@ -40,7 +40,6 @@ class WADReader:
 
     def read_texture_header(self, offset):
         read_4_bytes = self.read_4_bytes
-
         tex_header = TextureHeader()
         tex_header.texture_count = read_4_bytes(offset + 0, byte_format='I')
         tex_header.texture_offset = read_4_bytes(offset + 4, byte_format='I')
@@ -52,19 +51,16 @@ class WADReader:
 
     def read_patch_column(self, offset):
         read_1_byte = self.read_1_byte
-
         patch_column = PatchColumn()
         patch_column.top_delta = read_1_byte(offset + 0)
 
         if patch_column.top_delta != 0xFF:
             patch_column.length = read_1_byte(offset + 1)
             patch_column.padding_pre = read_1_byte(offset + 2)
-
             patch_column.data = []
             for i in range(patch_column.length):
                 patch_column.data.append(read_1_byte(offset + 3 + i))
             patch_column.padding_post = read_1_byte(offset + 3 + patch_column.length)
-
             return patch_column, offset + 4 + patch_column.length
 
         return patch_column, offset + 1
@@ -72,13 +68,11 @@ class WADReader:
     def read_patch_header(self, offset):
         read_2_bytes = self.read_2_bytes
         read_4_bytes = self.read_4_bytes
-
         patch_header = PatchHeader()
         patch_header.width = read_2_bytes(offset + 0, byte_format='H')
         patch_header.height = read_2_bytes(offset + 2, byte_format='H')
         patch_header.left_offset = read_2_bytes(offset + 4, byte_format='h')
         patch_header.top_offset = read_2_bytes(offset + 6, byte_format='h')
-
         patch_header.column_offset = []
         for i in range(patch_header.width):
             patch_header.column_offset.append(read_4_bytes(offset + 8 + 4 * i, byte_format='I'))
@@ -86,7 +80,6 @@ class WADReader:
 
     def read_palette(self, offset):
         read_1_byte = self.read_1_byte
-
         palette = []
         for i in range(256):
             r = read_1_byte(offset + i * 3 + 0)
@@ -98,7 +91,6 @@ class WADReader:
     def read_sector(self, offset):
         read_2_bytes = self.read_2_bytes
         read_string = self.read_string
-
         sector = Sector()
         sector.floor_height = read_2_bytes(offset, byte_format='h')
         sector.ceil_height = read_2_bytes(offset + 2, byte_format='h')
@@ -112,7 +104,6 @@ class WADReader:
     def read_sidedef(self, offset):
         read_2_bytes = self.read_2_bytes
         read_string = self.read_string
-
         sidedef = Sidedef()
         sidedef.x_offset = read_2_bytes(offset, byte_format='h')
         sidedef.y_offset = read_2_bytes(offset + 2, byte_format='h')
@@ -124,7 +115,6 @@ class WADReader:
 
     def read_thing(self, offset):
         read_2_bytes = self.read_2_bytes
-
         thing = Thing()
         x = read_2_bytes(offset, byte_format='h')
         y = read_2_bytes(offset + 2, byte_format='h')
@@ -136,7 +126,6 @@ class WADReader:
 
     def read_segment(self, offset):
         read_2_bytes = self.read_2_bytes
-
         seg = Seg()
         seg.start_vertex_id = read_2_bytes(offset, byte_format='h')
         seg.end_vertex_id = read_2_bytes(offset + 2, byte_format='h')
@@ -148,7 +137,6 @@ class WADReader:
 
     def read_sub_sector(self, offset):
         read_2_bytes = self.read_2_bytes
-
         sub_sector = SubSector()
         sub_sector.seg_count = read_2_bytes(offset, byte_format='h')
         sub_sector.first_seg_id = read_2_bytes(offset + 2, byte_format='h')
@@ -156,23 +144,19 @@ class WADReader:
 
     def read_node(self, offset):
         read_2_bytes = self.read_2_bytes
-
         node = Node()
         node.x_partition = read_2_bytes(offset, byte_format='h')
         node.y_partition = read_2_bytes(offset + 2, byte_format='h')
         node.dx_partition = read_2_bytes(offset + 4, byte_format='h')
         node.dy_partition = read_2_bytes(offset + 6, byte_format='h')
-
         node.bbox['front'].top = read_2_bytes(offset + 8, byte_format='h')
         node.bbox['front'].bottom = read_2_bytes(offset + 10, byte_format='h')
         node.bbox['front'].left = read_2_bytes(offset + 12, byte_format='h')
         node.bbox['front'].right = read_2_bytes(offset + 14, byte_format='h')
-
         node.bbox['back'].top = read_2_bytes(offset + 16, byte_format='h')
         node.bbox['back'].bottom = read_2_bytes(offset + 18, byte_format='h')
         node.bbox['back'].left = read_2_bytes(offset + 20, byte_format='h')
         node.bbox['back'].right = read_2_bytes(offset + 22, byte_format='h')
-
         node.front_child_id = read_2_bytes(offset + 24, byte_format='H')
         node.back_child_id = read_2_bytes(offset + 26, byte_format='H')
         return node
