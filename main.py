@@ -19,10 +19,11 @@ class DoomEngine:
         self.clock = pg.time.Clock()
         self.running = True
         self.dt = 1 / 60
+        self.level = LEVEL
         self.on_init()
 
     def on_init(self):
-        self.wad_data = WADData(self, map_name='E1M'+str(LEVEL))
+        self.wad_data = WADData(self, map_name='E1M'+str(self.level))
         self.map_renderer = MapRenderer(self)
         self.player = Player(self)
         self.bsp = BSP(self)
@@ -47,6 +48,11 @@ class DoomEngine:
                 self.running = False
                 pg.quit()
                 sys.exit()
+            if e.type == pg.KEYDOWN:
+                if pg.K_1 <= e.key <= pg.K_9:
+                    if self.level != e.key - pg.K_0:
+                        self.level = e.key - pg.K_0
+                        self.on_init()
 
     def run(self):
         while self.running:
