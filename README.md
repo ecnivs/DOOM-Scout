@@ -35,5 +35,6 @@ python main.py
 * `D`: Move right
 * `Left Arrow`: Rotate left
 * `Right Arrow`: Rotate right
+* `1-9`: Change Levels
 
 ### I'd appreciate any feedback or code reviews you might have!
