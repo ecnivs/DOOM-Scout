@@ -26,7 +26,7 @@ git clone https://github.com/ecnivs/DOOM-Scout.git
 ```
 2. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install pygame numba
 ```
 3. Run the Software:
 ```bash
