@@ -23,6 +23,7 @@ DOOM Scout allows you to render and explore levels from the classic **DOOM (1993
 1. Clone the repository:
 ```bash
 git clone https://github.com/ecnivs/DOOM-Scout.git
+cd DOOM-Scout
 ```
 2. Install dependencies:
 ```bash
