@@ -123,10 +123,10 @@ class BSP:
                 sub_sector_id = node_id - self.SUB_SECTOR_IDENTIFIER
                 self.render_sub_sector(sub_sector_id)
                 return None
-            
+
             node = self.nodes[node_id]
             is_on_back = self.is_on_back_side(node)
-            
+
             if is_on_back:
                 self.render_bsp_node(node.back_child_id)
                 if self.check_bbox(node.bbox['front']):
