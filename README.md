@@ -1,6 +1,6 @@
 # DOOM Scout
 ## Overview
-DOOM Scout allows you to render and explore levels from the classic **DOOM (1993)** game using WAD files. It focuses on navigation and viewing without any gameplay elements like shooting or enemies.
+**DOOM Scout** allows you to render and explore levels from the classic [DOOM (1993)](https://en.wikipedia.org/wiki/Doom_(1993_video_game)) game using [WAD](https://doomwiki.org/wiki/WAD) files. It focuses on navigation and viewing without any gameplay elements like shooting or enemies.
 
 ![swappy-20240524-213815](https://github.com/ecnivs/DOOM/assets/106900369/3b43bdbd-11fd-4543-a37d-58f0dd332ea8)
 
